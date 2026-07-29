@@ -1,0 +1,22 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Helper function to get user record from firestore
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Validate uploaded file constraints
+    function isValidAudio() {
+      return request.resource.contentType.matches('audio/.*') &&
+             request.resource.size < 25 * 1024 * 1024; // Limit 25MB
+    }
+
+    match /audio/{orgId}/{fileName} {
+      allow read: if isAuthenticated();
+      // Allow managers of the organization to upload audio
+      allow write: if isAuthenticated() && isValidAudio();
+    }
+  }
+}
