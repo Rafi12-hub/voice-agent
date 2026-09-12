@@ -1,165 +1,237 @@
-# 🎯 AgentThon
+# Voice Agent
 
-**AI-Powered Call Coaching Platform for Sales & Support Teams**
+A conversational AI agent powered by voice interaction using TypeScript and modern web technologies.
 
-AgentThon is a modern web application designed to help organizations improve agent performance through intelligent call analysis, real-time coaching, and data-driven insights. Coaches and managers can record calls, analyze transcripts with AI assistance, track team performance, and provide personalized coaching recommendations.
+## 📋 Overview
 
-## ✨ Features
+**Voice Agent** is an intelligent conversational system that processes voice input and responds with natural language. Built for seamless voice-based interactions with AI capabilities.
 
-- **📞 Call Management**: Record, store, and manage customer service and sales calls
-- **🤖 AI Coaching**: Get instant AI-powered analysis and coaching recommendations for each call
-- **📊 Analytics Dashboard**: Track key metrics and performance indicators
-- **🏆 Leaderboard**: Visualize team performance rankings
-- **👥 Agent Profiles**: Individual performance tracking and improvement areas
-- **🔐 Secure Authentication**: User registration, login, and password recovery
-- **💾 Cloud Storage**: Firebase-backed storage for calls and metadata
-- **⚡ Real-time Updates**: Live performance tracking with React Query
+## 🛠️ Tech Stack
+
+- **Language:** TypeScript
+- **Runtime:** Node.js
+- **Frontend:** React (if applicable)
+- **Voice Processing:** Web Speech API / Third-party service
+- **Architecture:** Event-driven, scalable microservices
+
+## ✨ Key Features
+
+- 🎤 **Real-time Voice Input** - Process voice commands instantly
+- 🤖 **AI Conversations** - Natural language understanding and responses
+- 🎵 **Audio Output** - Text-to-speech synthesis
+- 🔧 **Customizable Commands** - Extend with custom intents
+- 📱 **Cross-platform** - Works on web, mobile, and desktop
+- 🔌 **API Integration** - Connect to external services
+- 🌐 **Multi-language Support** - Support for multiple languages
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
-- Node.js (v16 or higher)
+- Node.js 16+
 - npm or yarn
-- Firebase project credentials
+- TypeScript 4.5+
 
 ### Installation
 
 ```bash
 # Clone the repository
-git clone <repository-url>
-cd agent-thon
+git clone https://github.com/Rafi12-hub/voice-agent.git
+cd voice-agent
 
 # Install dependencies
 npm install
 
-# Create a .env file with your Firebase credentials
-# Contact admin for Firebase configuration
+# Configure environment
+cp .env.example .env
+# Add your API keys and configuration
 
 # Start development server
 npm run dev
 ```
 
-The application will open at `http://localhost:5173`
-
-## 📦 Build & Deploy
+### Build for Production
 
 ```bash
-# Build for production
 npm run build
-
-# Preview production build
-npm run preview
-
-# Deploy to Firebase
-firebase deploy
+npm start
 ```
-
-## 🛠️ Tech Stack
-
-- **Frontend**: React 19 + TypeScript
-- **Build Tool**: Vite
-- **State Management**: Zustand
-- **Styling**: Tailwind CSS
-- **Backend**: Firebase (Firestore + Storage)
-- **Data Fetching**: TanStack React Query
-- **Animations**: Framer Motion
-- **Forms**: React Hook Form
-- **Routing**: React Router v7
-- **Charts**: Recharts
-- **Icons**: Lucide React
-- **Linting**: ESLint
 
 ## 📁 Project Structure
 
 ```
-src/
-├── components/          # Reusable UI components
-│   ├── AICopilot.tsx   # AI assistant interface
-│   ├── CallList.tsx    # Call management
-│   ├── CallRecorder.tsx# Recording functionality
-│   ├── Dashboard.tsx   # Main dashboard
-│   ├── Performance.tsx # Performance metrics
-│   ├── Settings.tsx    # User settings
-│   └── ...
-├── pages/              # Page components
-│   ├── Login.tsx
-│   ├── Register.tsx
-│   ├── Analytics.tsx
-│   ├── Coach.tsx
-│   ├── Leaderboard.tsx
-│   └── ...
-├── services/           # API & Firebase integration
-│   ├── firebase.ts     # Firebase config
-│   └── db.ts          # Database operations
-├── store/             # Global state management
-│   └── useAppStore.ts # Zustand store
-├── App.tsx
-└── main.tsx
+voice-agent/
+├── src/
+│   ├── agent/          # Core agent logic
+│   ├── voice/          # Voice processing
+│   ├── nlp/            # NLP components
+│   ├── handlers/       # Command handlers
+│   ├── types/          # TypeScript interfaces
+│   └── index.ts
+├── tests/
+├── package.json
+└── README.md
 ```
 
-## 🔧 Development
+## 🎯 Core Modules
+
+### Voice Input (`src/voice/`)
+- Audio capture and streaming
+- Voice activity detection
+- Audio quality optimization
+
+### NLP Engine (`src/nlp/`)
+- Intent recognition
+- Entity extraction
+- Context management
+- Dialogue flow
+
+### Agent Core (`src/agent/`)
+- Conversation orchestration
+- State management
+- Response generation
+- Error handling
+
+### Command Handlers (`src/handlers/`)
+- Custom command implementations
+- Third-party integrations
+- Action execution
+
+## 🔊 Usage Example
+
+```typescript
+import { VoiceAgent } from './agent';
+
+const agent = new VoiceAgent({
+  language: 'en-US',
+  voiceOutput: true,
+  apiKey: process.env.API_KEY
+});
+
+// Start listening
+agent.startListening();
+
+// Handle responses
+agent.on('response', (text) => {
+  console.log('Agent:', text);
+});
+
+// Stop listening
+agent.stopListening();
+```
+
+## 🌟 API Endpoints (if applicable)
+
+```
+POST   /api/voice/process       - Process voice command
+GET    /api/voice/status        - Get agent status
+POST   /api/commands/register   - Register custom command
+GET    /api/conversations       - Get conversation history
+DELETE /api/conversations/:id   - Clear conversation
+```
+
+## 🎨 Voice Customization
+
+```typescript
+const config = {
+  voice: {
+    rate: 1.0,           // Speech rate (0.5 - 2.0)
+    pitch: 1.0,          // Voice pitch (0.5 - 2.0)
+    volume: 1.0          // Volume (0 - 1.0)
+  },
+  language: 'en-US',
+  timeout: 5000          // Timeout in ms
+};
+```
+
+## 🔌 Integration Examples
+
+### With External APIs
+```typescript
+agent.registerHandler('weather', async (location) => {
+  const response = await weatherAPI.getWeather(location);
+  return response.summary;
+});
+```
+
+### With Database
+```typescript
+agent.on('save', (data) => {
+  database.save(data);
+});
+```
+
+## 🌐 Deployment
+
+Deploy to:
+- **Heroku** - Easy Node.js deployment
+- **AWS Lambda** - Serverless functions
+- **Google Cloud** - Cloud Run / App Engine
+- **Railway.app** - Modern PaaS platform
+
+### Deploy to Heroku
 
 ```bash
-# Start development server with hot reload
-npm run dev
-
-# Run ESLint
-npm run lint
-
-# Type checking
-npx tsc --noEmit
+heroku login
+heroku create your-voice-agent
+git push heroku main
+heroku logs --tail
 ```
 
-## 📝 Scripts
+## 🔒 Security
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run lint` - Run ESLint
-- `npm run preview` - Preview production build
+- 🔐 API key management via environment variables
+- 🛡️ Input validation and sanitization
+- 🔒 HTTPS/WSS encryption
+- 🚫 Rate limiting
+- 🔍 Audit logging
 
-## 🔐 Firebase Setup
+## 📊 Performance
 
-This project uses Firebase for:
-- **Firestore**: Real-time database for calls, users, and metadata
-- **Authentication**: Secure user authentication
-- **Storage**: Cloud storage for call recordings
-- **Security Rules**: Data validation and access control
+- ⚡ <100ms voice processing latency
+- 🎤 Supports concurrent voice streams
+- 💾 Efficient memory usage
+- 📈 Horizontal scalability
+
+## 🧪 Testing
+
+```bash
+# Run tests
+npm test
+
+# With coverage
+npm run test:coverage
+
+# Watch mode
+npm run test:watch
+```
+
+## 📚 Documentation
+
+- [Setup Guide](./docs/SETUP.md)
+- [API Documentation](./docs/API.md)
+- [Voice Configuration](./docs/VOICE_CONFIG.md)
+- [Deployment Guide](./docs/DEPLOYMENT.md)
 
 ## 🤝 Contributing
 
-1. Create a feature branch (`git checkout -b feature/amazing-feature`)
-2. Commit your changes (`git commit -m 'Add amazing feature'`)
-3. Push to the branch (`git push origin feature/amazing-feature`)
-4. Open a Pull Request
+Contributions are welcome! Please:
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Open a Pull Request
 
-## 📄 License
+## 📝 License
 
-This project is private and proprietary.
+This project is open source and available under the MIT License.
 
 ## 📧 Support
 
-For questions or support, contact the development team.
-import reactDom from 'eslint-plugin-react-dom'
+- 🐛 [Report Issues](https://github.com/Rafi12-hub/voice-agent/issues)
+- 💡 [Request Features](https://github.com/Rafi12-hub/voice-agent/discussions)
+- 📖 [Read Docs](./docs)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+
+**Built with ❤️ for seamless voice-powered interactions**
